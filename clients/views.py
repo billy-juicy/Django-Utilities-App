@@ -1,11 +1,15 @@
-from django.shortcuts import render
 from django.http import Http404
 from .models import Client
+from django.views.generic import ListView
 
-def home(request):
-    clients = Client.objects.all() # Получаем всех клиентов
+class ClientListView(ListView):
+    model = Client
+    template_name = 'clients/home.html' # Путь к шаблону
+    context_object_name = 'clients' # Название списка в шаблоне
 
-    if not clients: # Исключение
-        raise Http404('Нет клиентов для отображения!')
+    def get_queryset(self):
+        queryset = super().get_queryset()
 
-    return render(request, 'clients/home.html', {'clients': clients}) # Передаем всех клиентов в шаблон
+        if not queryset.exists():
+            raise Http404('Нет клиентов для отображения!')
+        return queryset

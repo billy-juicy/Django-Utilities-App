@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import home
+from .views import ClientListView
 
 urlpatterns = [
-    path('', home, name='home'), # Главная страница
+    path('', ClientListView.as_view(), name='home'), # Главная страница
 ]
