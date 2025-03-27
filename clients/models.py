@@ -7,7 +7,7 @@ class Client(models.Model):
     middle_name = models.CharField(max_length=100, blank=True, null=True) # Отчество с необязательным заполнением
     phone = models.CharField(max_length=20) # Телефон
     address = models.TextField() # Адрес
-    user = models.ForeignKey(User, db_index=True, on_delete=models.CASCADE) # Внешний ключ к таблице Пользователи
+    user = models.ForeignKey(User, db_index=True, on_delete=models.CASCADE) # Внешний ключ к таблице Пользователь
 
     class Meta:
         verbose_name_plural = "Clients"
@@ -15,3 +15,4 @@ class Client(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
