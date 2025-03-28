@@ -25,3 +25,67 @@ class Invoice(models.Model):
 
     def __str__(self):
         return f"{self.client} {self.date_issued}"
+
+class Tariff(models.Model):
+    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    rate = models.DecimalField(max_digits=10, decimal_places=2)
+    start_date = models.DateField()
+    end_date = models.DateField()
+
+    class Meta:
+        verbose_name_plural = "Tariffs"
+        verbose_name = "Tariff"
+
+    def __str__(self):
+        return f"{self.service} {self.rate}"
+
+class Debt(models.Model):
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    due_date = models.DateField()
+    status = models.CharField(max_length=50, choices=[("unpaid", "Unpaid"), ("paid", "Paid"), ("overdue", "Overdue")])
+
+    class Meta:
+        verbose_name_plural = "Debts"
+        verbose_name = "Debt"
+
+    def __str__(self):
+        return f"{self.client} {self.amount}"
+
+class Payment(models.Model):
+    invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE)
+    date_paid = models.DateField()
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    method = models.CharField(max_length=50)
+
+    class Meta:
+        verbose_name_plural = "Payments"
+        verbose_name = "Payment"
+
+    def __str__(self):
+        return f"{self.invoice} {self.date_paid}"
+
+class Meter(models.Model):
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    meter_number = models.CharField(max_length=50)
+    installation_date = models.DateField()
+
+    class Meta:
+        verbose_name_plural = "Meters"
+        verbose_name = "Meter"
+
+    def __str__(self):
+        return f"{self.client} {self.service} {self.meter_number}"
+
+class MeterReading(models.Model):
+    meter = models.ForeignKey(Meter, on_delete=models.CASCADE)
+    reading_date = models.DateField()
+    value = models.DecimalField(max_digits=10, decimal_places=2)
+
+    class Meta:
+        verbose_name_plural = "MeterReadings"
+        verbose_name = "MeterReading"
+
+    def __str__(self):
+        return f"{self.meter} {self.reading_date}"
