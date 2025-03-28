@@ -16,3 +16,29 @@ class Client(models.Model):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
+class Complaint(models.Model):
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    date_filed = models.DateField(auto_now_add=True)
+    description = models.TextField()
+    status = models.CharField(max_length=50,
+                              choices=[("open", "Open"), ("in progress", "In Progress"), ("resolved", "Resolved")])
+
+    class Meta:
+        verbose_name_plural = "Complaints"
+        verbose_name = "Complaint"
+
+    def __str__(self):
+        return f"{self.client.first_name} {self.client.last_name}"
+
+class Property(models.Model):
+    owner = models.ForeignKey(Client, on_delete=models.CASCADE)
+    address = models.TextField()
+    type = models.CharField(max_length=100)
+    area = models.DecimalField(max_digits=10, decimal_places=2)
+
+    class Meta:
+        verbose_name_plural = "Properties"
+        verbose_name = "Property"
+
+    def __str__(self):
+        return f"{self.owner.first_name} {self.owner.last_name}"
