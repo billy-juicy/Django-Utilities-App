@@ -22,9 +22,9 @@ class InvoiceAdmin(admin.ModelAdmin):
 admin.site.register(Invoice, InvoiceAdmin)
 
 class TariffAdmin(admin.ModelAdmin):
-    list_display = ('service', 'rate', 'start_date', 'end_date')
-    search_fields = ('service', 'rate', 'start_date', 'end_date')
-    list_filter = ('service', 'rate', 'start_date', 'end_date')
+    list_display = ('service', 'rate')
+    search_fields = ('service', 'rate')
+    list_filter = ('service', 'rate')
 
 admin.site.register(Tariff, TariffAdmin)
 

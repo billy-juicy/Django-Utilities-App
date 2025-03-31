@@ -29,8 +29,6 @@ class Invoice(models.Model):
 class Tariff(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     rate = models.DecimalField(max_digits=10, decimal_places=2)
-    start_date = models.DateField(db_index=True)
-    end_date = models.DateField(db_index=True)
 
     class Meta:
         verbose_name_plural = "Tariffs"
