@@ -16,8 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from clients.views import Homepage
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('clients.urls')), # Подключаем маршруты из clients
+    path('clients/', include('clients.urls')), # Подключаем маршруты из clients
+    path('', Homepage.as_view(), name='home'),
+    path("accounts/", include("django.contrib.auth.urls")),
 ]
+
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+urlpatterns += staticfiles_urlpatterns()

@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+
+{% block navbar %}
+{{ block.super }}
+{% endblock %}
+
+
+{% block content %}
+    {{ block.super }}
+    <ul>
+    {% for client in clients %}
+        <li>{{ client }}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
