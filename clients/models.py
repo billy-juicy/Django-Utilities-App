@@ -18,7 +18,7 @@ class Client(models.Model):
 
 class Complaint(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    date_filed = models.DateField(auto_now_add=True)
+    date_filed = models.DateField(auto_now_add=True, db_index=True)
     description = models.TextField()
     status = models.CharField(max_length=50,
                               choices=[("open", "Open"), ("in progress", "In Progress"), ("resolved", "Resolved")])

@@ -14,8 +14,8 @@ class Service(models.Model):
 
 class Invoice(models.Model):
     client = models.ForeignKey(Client, db_index=True, on_delete=models.CASCADE)
-    date_issued = models.DateField()
-    due_date = models.DateField()
+    date_issued = models.DateField(db_index=True)
+    due_date = models.DateField(db_index=True)
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=50)
 
@@ -29,8 +29,8 @@ class Invoice(models.Model):
 class Tariff(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     rate = models.DecimalField(max_digits=10, decimal_places=2)
-    start_date = models.DateField()
-    end_date = models.DateField()
+    start_date = models.DateField(db_index=True)
+    end_date = models.DateField(db_index=True)
 
     class Meta:
         verbose_name_plural = "Tariffs"
@@ -42,7 +42,7 @@ class Tariff(models.Model):
 class Debt(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    due_date = models.DateField()
+    due_date = models.DateField(db_index=True)
     status = models.CharField(max_length=50, choices=[("unpaid", "Unpaid"), ("paid", "Paid"), ("overdue", "Overdue")])
 
     class Meta:
@@ -54,7 +54,7 @@ class Debt(models.Model):
 
 class Payment(models.Model):
     invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE)
-    date_paid = models.DateField()
+    date_paid = models.DateField(db_index=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     method = models.CharField(max_length=50)
 
@@ -69,7 +69,7 @@ class Meter(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     meter_number = models.CharField(max_length=50)
-    installation_date = models.DateField()
+    installation_date = models.DateField(db_index=True)
 
     class Meta:
         verbose_name_plural = "Meters"
@@ -80,7 +80,7 @@ class Meter(models.Model):
 
 class MeterReading(models.Model):
     meter = models.ForeignKey(Meter, on_delete=models.CASCADE)
-    reading_date = models.DateField()
+    reading_date = models.DateField(db_index=True)
     value = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
