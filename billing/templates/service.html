@@ -1,0 +1,14 @@
+{% extends "main.html" %}
+
+{% block navbar %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+    <ul>
+    {% for service in services %}
+        <li>{{ service }}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
