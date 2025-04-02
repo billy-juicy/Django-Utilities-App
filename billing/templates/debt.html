@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+
+{% block navbar %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+    {% if user.is_authenticated %}
+    user: {{ user.username }}
+    {% endif %}
+    <ul>
+        <li>{{ debt.client }}, {{ debt.amount }}, {{ debt.due_date }} ,{{ debt.status }}</li>
+    </ul>
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.http import Http404
-from .models import Service
+from .models import Service, Debt
 from .models import Tariff
 from .models import Invoice
 from .models import Meter
@@ -76,3 +76,13 @@ class PaymentListView(ListView):
         if not queryset.exists():
             raise Http404('Нет платежей для отображения!')
         return queryset
+
+class DebtDetailView(DetailView):
+    model = Debt
+    template_name = 'debt.html'
+    context_object_name = 'debt'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        return context
