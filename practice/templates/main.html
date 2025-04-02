@@ -37,10 +37,10 @@
             Полезное
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Тарифы</a></li>
-            <li><a class="dropdown-item" href="#">Квитанции</a></li>
+            <li><a class="dropdown-item" href="{% url 'tariffs-list' %}">Тарифы</a></li>
+            <li><a class="dropdown-item" href="{% url 'invoices-list' %}">Квитанции</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Счетчики</a></li>
+            <li><a class="dropdown-item" href="{% url 'meters-list' %}">Счетчики</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -48,7 +48,7 @@
             Управление ЖКУ
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Платежи</a></li>
+            <li><a class="dropdown-item" href="{% url 'payments-list' %}">Платежи</a></li>
             <li><a class="dropdown-item" href="#">Задолженности</a></li>
             <li><a class="dropdown-item" href="#">Жалобы</a></li>
             <li><hr class="dropdown-divider"></li>
