@@ -4,6 +4,8 @@ from .models import Tariff
 from .models import Invoice
 from .models import Meter
 from .models import Payment
+from .forms import CalculateForm
+from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 
 
@@ -34,6 +36,11 @@ class TariffListView(ListView):
         if not queryset.exists():
             raise Http404('Нет тарифов для отображения!')
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['calculate_form'] = CalculateForm()
+        return context
 
 class InvoiceListView(ListView):
     model = Invoice

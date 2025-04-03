@@ -66,14 +66,6 @@
         {% block content %}
         {% endblock %}
     </div>
-<script>
-function calculate() {
-    const inputValue = document.getElementById('input1').value;
-    const tariffValue = document.getElementById('tariff-select').value;
-    const result = inputValue * tariffValue;
-    document.getElementById('result').innerText = `Итого: ${result} руб.`;
-}
-</script>
 </body>
     {% block js %}
     {% bootstrap_javascript %}

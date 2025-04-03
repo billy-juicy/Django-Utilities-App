@@ -1,4 +1,5 @@
 {% extends "main.html" %}
+{% load django_bootstrap5 %}
 
 {% block navbar %}
 {{ block.super }}
@@ -6,21 +7,48 @@
 
 {% block content %}
     {{ block.super }}
-    <div class="calculator">
+    <div class="calculate">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
         <h3>Калькулятор тарифов</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
         <label type="text">Введите число:</label> <!--Текстовый элемент-->
-        <input type="number" id="input1" min="1"> <!--Ввод числа-->
-        <select id="tariff-select"> <!--Выбор тарифа из тарифов-->
-            {% for tariff in tariffs %}
-            <option value="{{ tariff.rate }}">{{ tariff.rate }}</option> <!--Конкретный тариф-->
-            {% endfor %}
-        </select>
-        <button onclick="calculate()">Рассчитать</button> <!--Кнопка-->
+        {% bootstrap_field calculate_form.number_month show_label=False %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            {% bootstrap_field calculate_form.tariff_month show_label=False %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+        <button class="btn btn-primary" type="button" onclick="calculate()">Рассчитать</button> <!--Кнопка-->
         <div id="result"></div> <!--Результат-->
+        </div>
+    </div>
     </div>
     <ul>
     {% for tariff in tariffs %}
         <li>{{ tariff }}</li>
     {% endfor %}
     </ul>
+    {% endblock %}
+    {% block js %}
+    {{ block.super }}
+    <script>
+    function calculate() {
+        const inputValue = document.getElementById('input1').value;
+        const tariffValue = document.getElementById('tariff-select').value;
+        const result = inputValue * tariffValue;
+        document.getElementById('result').innerText = `Итого: ${result} руб.`;
+    }
+    </script>
 {% endblock %}
