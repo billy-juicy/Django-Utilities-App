@@ -6,6 +6,18 @@
 
 {% block content %}
     {{ block.super }}
+    <div class="calculator">
+        <h3>Калькулятор тарифов</h3>
+        <label type="text">Введите число:</label> <!--Текстовый элемент-->
+        <input type="number" id="input1" min="1"> <!--Ввод числа-->
+        <select id="tariff-select"> <!--Выбор тарифа из тарифов-->
+            {% for tariff in tariffs %}
+            <option value="{{ tariff.rate }}">{{ tariff.rate }}</option> <!--Конкретный тариф-->
+            {% endfor %}
+        </select>
+        <button onclick="calculate()">Рассчитать</button> <!--Кнопка-->
+        <div id="result"></div> <!--Результат-->
+    </div>
     <ul>
     {% for tariff in tariffs %}
         <li>{{ tariff }}</li>
