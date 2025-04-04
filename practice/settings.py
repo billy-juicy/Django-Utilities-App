@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_bootstrap5',
+    'dal',
+    'dal_select2',
     'clients', # Наше приложение
     'billing', # Услуги
 ]

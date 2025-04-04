@@ -1,6 +1,8 @@
+from django.contrib.messages.views import SuccessMessageMixin
 from django.http import Http404
-from .models import Client
-from django.views.generic import ListView, TemplateView
+from django.urls import reverse, reverse_lazy
+from .models import Client, Complaint
+from django.views.generic import ListView, TemplateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 class Homepage(TemplateView):
@@ -17,3 +19,14 @@ class ClientListView(LoginRequiredMixin, ListView):
         if not queryset.exists():
             raise Http404('Нет клиентов для отображения!')
         return queryset
+
+class AddComplaintFormView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+     model = Complaint
+     fields = ['client', 'description', 'status']
+     template_name = 'complaint_add_form.html'
+     success_url = reverse_lazy("complaints-success")
+     success_message = "Ваша жалоба успешно зарегистрирована!"
+
+
+
+
