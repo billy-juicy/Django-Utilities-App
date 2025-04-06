@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'django_bootstrap5',
     'dal',
     'dal_select2',
-    'clients', # Наше приложение
+    'clients', # Клиенты
     'billing', # Услуги
 ]
 
@@ -52,10 +52,10 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware', # защита от CSRF-атак
+    'django.contrib.auth.middleware.AuthenticationMiddleware', # система аутентификации
+    'django.contrib.messages.middleware.MessageMiddleware', # работа с flash-сообщениями
+    'django.middleware.clickjacking.XFrameOptionsMiddleware', # защита от clickjacking
 ]
 
 ROOT_URLCONF = 'practice.urls'
@@ -115,13 +115,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-us' # язык интерфейса
 
-TIME_ZONE = 'Europe/Moscow'
+TIME_ZONE = 'Europe/Moscow' # московский часовой пояс
 
-USE_I18N = True
+USE_I18N = True # включение интернационализации
 
-USE_TZ = False
+USE_TZ = False # учет часовых поясов
 
 
 # Static files (CSS, JavaScript, Images)

@@ -23,7 +23,7 @@ urlpatterns = [
     path('clients/', include('clients.urls')), # Подключаем маршруты из clients
     path('', Homepage.as_view(), name='home'),
     path("accounts/", include("django.contrib.auth.urls")),
-    path('billing/', include('billing.urls')),
+    path('billing/', include('billing.urls')), # Подключаем маршруты из billing
 ]
 
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns

@@ -1,6 +1,6 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import Http404
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from .models import Client, Complaint
 from django.views.generic import ListView, TemplateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
