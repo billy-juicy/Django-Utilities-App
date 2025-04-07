@@ -1,14 +1,27 @@
 {% extends "main.html" %}
 
-{% block navbar %}
-{{ block.super }}
-{% endblock %}
-
 {% block content %}
     {{ block.super }}
-    <ul>
-    {% for service in services %}
-        <li>{{ service }}</li>
-    {% endfor %}
-    </ul>
+    <div class="container mt-4">
+        <h3 class="mb-4">Услуги ЖКХ</h3>
+        <div class="row">
+            {% for service in services %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">{{ service.name }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <strong>Единица измерения:</strong> {{ service.unit }}
+                        </p>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a href="{% url 'tariffs-list' %}" class="btn btn-outline-success btn-sm ms-2">Тарифы</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

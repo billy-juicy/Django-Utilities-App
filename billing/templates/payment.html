@@ -1,14 +1,27 @@
 {% extends "main.html" %}
 
-{% block navbar %}
-{{ block.super }}
-{% endblock %}
-
 {% block content %}
     {{ block.super }}
-    <ul>
-    {% for payment in payments %}
-        <li>{{ payment }}</li>
-    {% endfor %}
-    </ul>
+    <div class="container mt-3">
+        <h3 class="mb-3">Платежи</h3>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Квитанция</th>
+                    <th>Дата</th>
+                    <th>Сумма</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for payment in payments %}
+                <tr>
+                    <td>№{{ payment.invoice.id }}</td>
+                    <td>{{ payment.date_paid|date:"d.m.Y" }}</td>
+                    <td>{{ payment.amount }} ₽</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

@@ -7,6 +7,27 @@
 
 {% block content %}
     {{ block.super }}
+    <div class="row mt-4">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <hr class="dropdown-divider">
+            <h3 class="mb-3">Доступные тарифы</h3>
+            <div class="row">
+                {% for tariff in tariffs %}
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ tariff.service }}</h5>
+                            <p class="card-text">
+                                <strong>Цена:</strong> {{ tariff.rate }} руб.<br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
     <div class="calculate">
     <div class="row">
         <div class="col-2"></div>
@@ -35,13 +56,9 @@
         </div>
     </div>
     </div>
-    <ul>
-    {% for tariff in tariffs %}
-        <li>{{ tariff }}</li>
-    {% endfor %}
-    </ul>
-    {% endblock %}
-    {% block js %}
+{% endblock %}
+
+{% block js %}
     {{ block.super }}
     <script>
     function calculate() {

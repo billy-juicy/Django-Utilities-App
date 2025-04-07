@@ -1,15 +1,22 @@
 {% extends "main.html" %}
 
-{% block navbar %}
-{{ block.super }}
-{% endblock %}
-
-
 {% block content %}
     {{ block.super }}
-    <ul>
-    {% for client in clients %}
-        <li>{{ client }}</li>
-    {% endfor %}
-    </ul>
+    <div class="container mt-3">
+        <h3>Клиенты</h3>
+        <table class="table">
+            <tr>
+                <th>ФИО</th>
+                <th>Телефон</th>
+                <th>Адрес</th>
+            </tr>
+            {% for client in clients %}
+            <tr>
+                <td>{{ client.last_name }} {{ client.first_name }}</td>
+                <td>{{ client.phone }}</td>
+                <td>{{ client.address }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}

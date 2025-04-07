@@ -1,14 +1,39 @@
 {% extends "main.html" %}
 
-{% block navbar %}
-{{ block.super }}
-{% endblock %}
-
 {% block content %}
     {{ block.super }}
-    <ul>
-    {% for invoice in invoices %}
-        <li>{{ invoice }}</li>
-    {% endfor %}
-    </ul>
+    <div class="container mt-3">
+        <h3>Квитанции</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Клиент</th>
+                    <th>Дата выставления</th>
+                    <th>Срок оплаты</th>
+                    <th>Сумма</th>
+                    <th>Статус</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for invoice in invoices %}
+                <tr>
+                    <td>{{ invoice.id }}</td>
+                    <td>{{ invoice.client.last_name }} {{ invoice.client.first_name }}</td>
+                    <td>{{ invoice.date_issued|date:"d.m.Y" }}</td>
+                    <td>{{ invoice.due_date|date:"d.m.Y" }}</td>
+                    <td>{{ invoice.total_amount }} руб.</td>
+                    <td>
+                        <span class="badge
+                            {% if invoice.status == 'paid' %}bg-success
+                            {% elif invoice.status == 'overdue' %}bg-danger
+                            {% else %}bg-warning{% endif %}">
+                            {{ invoice.status }}
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

@@ -1,14 +1,30 @@
 {% extends "main.html" %}
 
-{% block navbar %}
-{{ block.super }}
-{% endblock %}
-
 {% block content %}
     {{ block.super }}
-    <ul>
-    {% for meter in meters %}
-        <li>{{ meter }}</li>
-    {% endfor %}
-    </ul>
+    <div class="container mt-3">
+        <h3><i class="bi bi-speedometer2"></i>Счётчики</h3>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Клиент</th>
+                    <th>Услуга</th>
+                    <th>Номер счетчика</th>
+                    <th>Дата установки</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for meter in meters %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ meter.client.last_name }} {{ meter.client.first_name }}</td>
+                    <td>{{ meter.service.name }}</td>
+                    <td><strong>{{ meter.meter_number }}</strong></td>
+                    <td>{{ meter.installation_date|date:"d.m.Y" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
