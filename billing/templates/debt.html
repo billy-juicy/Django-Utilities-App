@@ -14,7 +14,7 @@
         </div>
         {% endif %}
         <h3 class="mb-4"><i class="bi bi-exclamation-triangle"></i> Задолженности</h3>
-        <div class="table-responsive"> <!-- table-responsive - делает таблицу прокручиваемой на малых экранах -->
+        <div class="table">
             <table class="table table-hover"> <!-- table-hover - подсветка строк при наведении -->
                 <thead class="table-light"> <!-- table-light - светлый фон заголовка -->
                     <tr>
@@ -25,7 +25,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="{% if debt.status == 'overdue' %}table-danger{% elif debt.status == 'paid' %}table-success{% endif %}"> <!-- table-danger - красный фон (для просроченных), table-success - зеленый фон (для оплаченных) -->
+                    <!-- table-danger - красный фон (для просроченных), table-success - зеленый фон (для оплаченных) -->
+                    <tr class="{% if debt.status == 'overdue' %}table-danger
+                    {% elif debt.status == 'paid' %}table-success
+                    {% endif %}">
                         <td>{{ debt.client.last_name }} {{ debt.client.first_name }}</td>
                         <td>{{ debt.amount }} ₽</td>
                         <td>{{ debt.due_date|date:"d.m.Y" }}</td>
@@ -36,7 +39,8 @@
                             <span class="badge
                                 {% if debt.status == 'paid' %}bg-success
                                 {% elif debt.status == 'overdue' %}bg-danger
-                                {% else %}bg-warning{% endif %}">
+                                {% else %}bg-warning
+                                {% endif %}">
                                 {{ debt.get_status_display }}
                             </span>
                         </td>
