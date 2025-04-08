@@ -7,20 +7,24 @@
 {% block content %}
     {{ block.super }}
     <div class="container mt-3">
-        <h3>Клиенты</h3>
-        <table class="table">
-            <tr>
-                <th>ФИО</th>
-                <th>Телефон</th>
-                <th>Адрес</th>
-            </tr>
-            {% for client in clients %}
-            <tr>
-                <td>{{ client.last_name }} {{ client.first_name }}</td>
-                <td>{{ client.phone }}</td>
-                <td>{{ client.address }}</td>
-            </tr>
-            {% endfor %}
-        </table>
+        <h3 class="mb-4">Клиенты</h3>
+        <div class="row fw-bold border-bottom pb-2 mb-2"> <!-- fw-bold - выделяет заголовки жирным, border-bottom - визуально отделяет заголовки от данных, pb-2 - добавляет воздух между текстом и границей, mb-2 - создает отступ перед следующей строкой данных -->
+            <div class="col-md-4">ФИО</div>
+            <div class="col-md-4">Телефон</div>
+            <div class="col-md-4">Адрес</div>
+        </div>
+        {% for client in clients %}
+        <div class="row py-2 border-bottom"> <!-- py-2 - задает ширину строк -->
+            <div class="col-md-4">
+                {{ client.last_name }} {{ client.first_name }}
+            </div>
+            <div class="col-md-4">
+                {{ client.phone }}
+            </div>
+            <div class="col-md-4">
+                {{ client.address }}
+            </div>
+        </div>
+        {% endfor %}
     </div>
 {% endblock %}

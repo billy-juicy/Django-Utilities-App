@@ -1,5 +1,6 @@
 {% extends "main.html" %}
 {% load django_bootstrap5 %}
+{% load static %}
 
 {% block content %}
     {{ block.super }}
@@ -14,4 +15,13 @@
     </form>
 
 {% endblock %}
+
+{% block js %}
+{{ block.super }}
+<script type="text/javascript" src="{{ STATIC_URL }}JQuery/jquery-3.7.1.min.js"></script>
+
+{{ form.media }}
+
+{% endblock %}
+
 
