@@ -1,0 +1,33 @@
+{% extends "main.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+    {{ block.super }}
+    
+    <div class="container mt-3">
+        <h3 class="mb-3">Показания счетчиков</h3>
+        
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>Счетчик</th>
+                    <th>Дата</th>
+                    <th>Показание</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reading in meter_readings %}
+                <tr>
+                    <td>{{ reading.meter }}</td>
+                    <td>{{ reading.reading_date|date:"d.m.Y" }}</td>
+                    <td>{{ reading.value }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center text-muted">Нет данных</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

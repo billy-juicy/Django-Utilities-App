@@ -5,6 +5,7 @@ from .views import InvoiceListView
 from .views import MeterListView
 from .views import PaymentListView
 from .views import DebtDetailView
+from .views import MeterReadingListView
 
 urlpatterns = [
     path('services', ServiceListView.as_view(), name='services-list'),
@@ -13,4 +14,5 @@ urlpatterns = [
     path('meters', MeterListView.as_view(), name='meters-list'),
     path('payments', PaymentListView.as_view(), name='payments-list'),
     path('debt/<int:pk>', DebtDetailView.as_view(), name='debt'),
+    path('meter_readings', MeterReadingListView.as_view(), name='meter-readings-list'),
 ]

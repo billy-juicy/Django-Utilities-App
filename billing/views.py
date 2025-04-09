@@ -1,11 +1,10 @@
 from django.http import Http404
-from .models import Service, Debt
+from .models import Service, Debt, MeterReading
 from .models import Tariff
 from .models import Invoice
 from .models import Meter
 from .models import Payment
 from .forms import CalculateForm
-from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 
 
@@ -93,3 +92,15 @@ class DebtDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
         return context
+
+class MeterReadingListView(ListView):
+    model = MeterReading
+    template_name = 'meter_reading.html'
+    context_object_name = 'meter_readings'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        if not queryset.exists():
+            raise Http404('Нет показателей счетчиков для отображения!')
+        return queryset
