@@ -2,7 +2,6 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.http import Http404
 from django.urls import reverse_lazy
 from django.db.models import Q
-
 from .forms import ComplaintForm
 from .models import Client, Complaint
 from django.views.generic import ListView, TemplateView, CreateView
@@ -14,6 +13,7 @@ class Homepage(TemplateView):
     template_name = 'home.html'
 
 class ClientListView(LoginRequiredMixin, ListView):
+    paginate_by = 2
     model = Client
     template_name = 'clients.html' # Путь к шаблону
     context_object_name = 'clients' # Название списка в шаблоне

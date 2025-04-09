@@ -1,5 +1,5 @@
 {% load django_bootstrap5 %}
-
+{% load static %}
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -16,7 +16,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'home' %}"><img src="{{ STATIC_URL }}images/energy.png"></a>
+          <a class="nav-link active" aria-current="page" href="{% url 'home' %}"><img src="{% static 'images/energy.png' %}"></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'clients-list' %}">Список клиентов</a>

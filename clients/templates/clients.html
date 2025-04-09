@@ -13,7 +13,7 @@
             <div class="col-md-4">Телефон</div>
             <div class="col-md-4">Адрес</div>
         </div>
-        {% for client in clients %}
+        {% for client in page_obj %}
         <div class="row py-2 border-bottom"> <!-- py-2 - задает ширину строк -->
             <div class="col-md-4">
                 {{ client.last_name }} {{ client.first_name }}
@@ -27,4 +27,21 @@
         </div>
         {% endfor %}
     </div>
+    <div class="pagination row>">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
 {% endblock %}
