@@ -7,13 +7,12 @@ from .models import Client, Complaint
 from django.views.generic import ListView, TemplateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from dal import autocomplete
-from .models import Client
 
 class Homepage(TemplateView):
     template_name = 'home.html'
 
 class ClientListView(LoginRequiredMixin, ListView):
-    paginate_by = 2
+    paginate_by = 3
     model = Client
     template_name = 'clients.html' # Путь к шаблону
     context_object_name = 'clients' # Название списка в шаблоне
