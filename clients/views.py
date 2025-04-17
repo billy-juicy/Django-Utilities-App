@@ -1,3 +1,4 @@
+from datetime import timezone, timedelta
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import Http404
 from django.urls import reverse_lazy
@@ -8,8 +9,21 @@ from django.views.generic import ListView, TemplateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from dal import autocomplete
 
+
 class Homepage(TemplateView):
     template_name = 'home.html'
+
+    def get_context_data(self, **kwargs):
+        def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            context['clients_count'] = Client.objects.count()
+            context['active_complaints'] = Complaint.objects.filter(status='open').count()
+            context['new_complaints'] = Complaint.objects.filter(
+                status='open',
+                date_filed__gte=timezone.now() - timedelta(days=7)
+            ).count()
+            context['last_complaints'] = Complaint.objects.select_related('client').order_by('-date_filed')[:5]
+            return context
 
 class ClientListView(LoginRequiredMixin, ListView):
     paginate_by = 3

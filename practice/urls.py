@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('clients/', include('clients.urls')), # Подключаем маршруты из clients
-    path('', Homepage.as_view(), name='home'),
+    path('', Homepage.as_view(), name='homepage'),
     path("accounts/", include("django.contrib.auth.urls")),
     path('billing/', include('billing.urls')), # Подключаем маршруты из billing
 ]
