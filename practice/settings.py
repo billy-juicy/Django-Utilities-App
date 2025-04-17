@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_bootstrap5',
     'django_celery_beat',
+    'rest_framework',
     'clients', # Клиенты
     'billing', # Услуги
 
@@ -157,3 +158,11 @@ CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 # CELERY_BROKER_URL = 'amqp://admin:admin@localhost:5672/practice'
 CELERY_IMPORTS = ('practice.tasks',)
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}

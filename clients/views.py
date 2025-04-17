@@ -24,6 +24,22 @@ class ClientListView(LoginRequiredMixin, ListView):
             raise Http404('Нет клиентов для отображения!')
         return queryset
 
+from rest_framework import viewsets, permissions, pagination
+from rest_framework.exceptions import NotFound
+from .serializers import ClientSerializer
+
+class ClientViewSet(viewsets.ModelViewSet):
+    serializer_class = ClientSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    pagination_class = pagination.PageNumberPagination  # Пагинация как в ListView
+    pagination_class.page_size = 3
+
+    def get_queryset(self):
+        queryset = Client.objects.all()
+        if not queryset.exists():
+            raise NotFound(detail="Нет клиентов для отображения!")
+        return queryset
+
 class AddComplaintFormView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
      model = Complaint
      form = ComplaintForm

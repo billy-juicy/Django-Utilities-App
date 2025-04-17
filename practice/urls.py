@@ -20,6 +20,7 @@ from clients.views import Homepage
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls')),
     path('clients/', include('clients.urls')), # Подключаем маршруты из clients
     path('', Homepage.as_view(), name='home'),
     path("accounts/", include("django.contrib.auth.urls")),
