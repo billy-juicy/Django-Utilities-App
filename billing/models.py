@@ -38,10 +38,19 @@ class Tariff(models.Model):
         return f"{self.service} {self.rate}"
 
 class Debt(models.Model):
+    UNPAID = 'unpaid'
+    PAID = 'paid'
+    OVERDUE = 'overdue'
+    CHOICES_STATUS = [
+        (UNPAID, 'unpaid'),
+        (PAID, 'unpaid'),
+        (OVERDUE, 'overdue'),
+    ]
+
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     due_date = models.DateField(db_index=True)
-    status = models.CharField(max_length=50, choices=[("unpaid", "Unpaid"), ("paid", "Paid"), ("overdue", "Overdue")])
+    status = models.CharField(max_length=50, choices=CHOICES_STATUS, default=UNPAID)
 
     class Meta:
         verbose_name_plural = "Debts"

@@ -44,8 +44,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_bootstrap5',
+    'django_celery_beat',
     'clients', # Клиенты
     'billing', # Услуги
+
 ]
 
 MIDDLEWARE = [
@@ -153,4 +155,5 @@ BOOTSTRAP5 = {
 
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+# CELERY_BROKER_URL = 'amqp://admin:admin@localhost:5672/practice'
 CELERY_IMPORTS = ('practice.tasks',)
