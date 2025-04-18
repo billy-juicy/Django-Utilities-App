@@ -1,143 +1,193 @@
 {% extends "main.html" %}
+{% load static %}
 
-{% block navbar %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container">
-        <a class="navbar-brand" href="{% url 'homepage' %}">
-            <i class="bi bi-building"></i> Управление ЖКХ
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="{% url 'homepage' %}">
-                        <i class="bi bi-house-door"></i> Главная
-                    </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="clientsDropdown" role="button" data-bs-toggle="dropdown">
-                        <i class="bi bi-people"></i> Клиенты
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'clients-list' %}">Список клиентов</a></li>
-                        <li><a class="dropdown-item" href="{% url 'complaints-add' %}">Добавить жалобу</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <div class="d-flex">
-                {% if user.is_authenticated %}
-                    <div class="dropdown">
-                        <button class="btn btn-outline-light dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
-                            <i class="bi bi-person-circle"></i> {{ user.username }}
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i> Выйти</a></li>
-                        </ul>
-                    </div>
-                {% else %}
-                    <a href="{% url 'login' %}" class="btn btn-outline-light me-2">
-                        <i class="bi bi-box-arrow-in-right"></i> Войти
-                    </a>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-</nav>
+{% block css %}
+{{ block.super }}
+<style>
+    .hero-section {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                    url('/static/images/energy.png');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        border-radius: 10px;
+    }
+    .service-card {
+        transition: transform 0.3s, box-shadow 0.3s;
+        border: none;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .stat-card {
+        border-left: 4px solid;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <!-- Статистика -->
-    <div class="row mb-4">
+<!-- Герой-секция -->
+<div class="hero-section p-5 mb-5 text-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold mb-4">Управляющая компания "ВашДом"</h1>
+        <p class="lead mb-4">Комфортное жильё - наша забота!</p>
+        <a href="{% url 'clients-list' %}" class="btn btn-primary btn-lg px-4 me-2">
+            <i class="bi bi-people-fill"></i> Клиенты
+        </a>
+        <a href="{% url 'complaints-add' %}" class="btn btn-outline-light btn-lg px-4">
+            <i class="bi bi-exclamation-triangle-fill"></i> Оставить заявку
+        </a>
+    </div>
+</div>
+
+<!-- Быстрые ссылки -->
+<div class="container mb-5">
+    <div class="row g-4">
         <div class="col-md-4">
-            <div class="card text-white bg-primary">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="card-title">Клиенты</h6>
-                            <h2 class="card-text">{{ clients_count }}</h2>
-                        </div>
-                        <i class="bi bi-people-fill fs-1"></i>
+            <a href="{% url 'invoices-list' %}" class="text-decoration-none">
+                <div class="card service-card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-receipt-cutoff display-4 text-primary mb-3"></i>
+                        <h3>Квитанции</h3>
+                        <p class="text-muted">Просмотр и оплата счетов</p>
                     </div>
-                    <a href="{% url 'clients-list' %}" class="stretched-link"></a>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="{% url 'meters-list' %}" class="text-decoration-none">
+                <div class="card service-card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-speedometer2 display-4 text-success mb-3"></i>
+                        <h3>Счётчики</h3>
+                        <p class="text-muted">Передача показаний</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="{% url 'tariffs-list' %}" class="text-decoration-none">
+                <div class="card service-card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-cash-stack display-4 text-warning mb-3"></i>
+                        <h3>Тарифы</h3>
+                        <p class="text-muted">Актуальные расценки</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Статистика -->
+<div class="container mb-5">
+    <h2 class="text-center mb-4">Наша статистика</h2>
+    <div class="row g-4">
+        <div class="col-md-3">
+            <div class="card stat-card h-100 border-left-primary">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6 class="text-primary">Клиентов</h6>
+                            <h2 class="mb-0">1,254</h2>
+                        </div>
+                        <i class="bi bi-people-fill text-primary fs-1"></i>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card text-white bg-success">
+        <div class="col-md-3">
+            <div class="card stat-card h-100 border-left-success">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between">
                         <div>
-                            <h6 class="card-title">Активные жалобы</h6>
-                            <h2 class="card-text">{{ active_complaints }}</h2>
+                            <h6 class="text-success">Объектов</h6>
+                            <h2 class="mb-0">48</h2>
                         </div>
-                        <i class="bi bi-chat-left-text fs-1"></i>
+                        <i class="bi bi-buildings-fill text-success fs-1"></i>
                     </div>
-                    <a href="#" class="stretched-link"></a>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card text-white bg-info">
+        <div class="col-md-3">
+            <div class="card stat-card h-100 border-left-info">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between">
                         <div>
-                            <h6 class="card-title">Новые жалобы</h6>
-                            <h2 class="card-text">{{ new_complaints }}</h2>
+                            <h6 class="text-info">Заявок сегодня</h6>
+                            <h2 class="mb-0">12</h2>
                         </div>
-                        <i class="bi bi-exclamation-triangle fs-1"></i>
+                        <i class="bi bi-chat-left-text-fill text-info fs-1"></i>
                     </div>
-                    <a href="#" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card stat-card h-100 border-left-warning">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6 class="text-warning">Решено заявок</h6>
+                            <h2 class="mb-0">98%</h2>
+                        </div>
+                        <i class="bi bi-check-circle-fill text-warning fs-1"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Быстрый доступ -->
-    <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-            <i class="bi bi-lightning"></i> Быстрые действия
-        </div>
-        <div class="card-body">
-            <div class="d-flex flex-wrap gap-2">
-                <a href="{% url 'clients-list' %}" class="btn btn-primary">
-                    <i class="bi bi-people"></i> Список клиентов
-                </a>
-                <a href="{% url 'complaints-add' %}" class="btn btn-danger">
-                    <i class="bi bi-exclamation-triangle"></i> Добавить жалобу
-                </a>
-            </div>
-        </div>
+<!-- Последние новости -->
+<div class="container mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Последние новости</h2>
+        <a href="#" class="btn btn-outline-primary">Все новости</a>
     </div>
 
-    <!-- Последние активности -->
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <i class="bi bi-exclamation-triangle"></i> Последние жалобы
-                </div>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <img src="{% static 'images/news1.jpg' %}" class="card-img-top" alt="Новость">
                 <div class="card-body">
-                    {% if last_complaints %}
-                    <div class="list-group">
-                        {% for complaint in last_complaints %}
-                        <a href="#" class="list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h6 class="mb-1">{{ complaint.client.last_name }} {{ complaint.client.first_name }}</h6>
-                                <span class="badge bg-{% if complaint.status == 'open' %}danger{% elif complaint.status == 'in progress' %}warning{% else %}success{% endif %}">
-                                    {% if complaint.status == 'open' %}Открыта{% elif complaint.status == 'in progress' %}В работе{% else %}Решена{% endif %}
-                                </span>
-                            </div>
-                            <p class="mb-1 text-truncate">{{ complaint.description }}</p>
-                            <small class="text-muted">{{ complaint.date_filed|date:"d.m.Y H:i" }}</small>
-                        </a>
-                        {% endfor %}
-                    </div>
-                    {% else %}
-                    <div class="alert alert-info">Нет последних жалоб для отображения</div>
-                    {% endif %}
+                    <span class="badge bg-primary mb-2">Объявление</span>
+                    <h5 class="card-title">Отключение горячей воды</h5>
+                    <p class="card-text">С 15 по 20 июня плановые работы на теплотрассе...</p>
+                    <a href="#" class="btn btn-sm btn-outline-primary">Подробнее</a>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <small class="text-muted">Опубликовано 10.06.2023</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <img src="{% static 'images/news2.jpg' %}" class="card-img-top" alt="Новость">
+                <div class="card-body">
+                    <span class="badge bg-success mb-2">Обновление</span>
+                    <h5 class="card-title">Новые тарифы с июля</h5>
+                    <p class="card-text">Утверждены новые тарифы на коммунальные услуги...</p>
+                    <a href="#" class="btn btn-sm btn-outline-primary">Подробнее</a>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <small class="text-muted">Опубликовано 05.06.2023</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <img src="{% static 'images/news3.jpg' %}" class="card-img-top" alt="Новость">
+                <div class="card-body">
+                    <span class="badge bg-info mb-2">Событие</span>
+                    <h5 class="card-title">День открытых дверей</h5>
+                    <p class="card-text">Приглашаем всех жителей 25 июня на встречу с управляющей компанией...</p>
+                    <a href="#" class="btn btn-sm btn-outline-primary">Подробнее</a>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <small class="text-muted">Опубликовано 01.06.2023</small>
                 </div>
             </div>
         </div>
@@ -145,34 +195,8 @@
 </div>
 {% endblock %}
 
-{% block footer %}
-<footer class="bg-dark text-white py-4 mt-4">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h5><i class="bi bi-building"></i> Управление ЖКХ</h5>
-                <p>Система управления клиентами и жалобами</p>
-            </div>
-            <div class="col-md-3">
-                <h5>Контакты</h5>
-                <ul class="list-unstyled">
-                    <li><i class="bi bi-telephone"></i> +7 (XXX) XXX-XX-XX</li>
-                    <li><i class="bi bi-envelope"></i> info@example.com</li>
-                </ul>
-            </div>
-            <div class="col-md-3">
-                <h5>Режим работы</h5>
-                <ul class="list-unstyled">
-                    <li>Пн-Пт: 9:00 - 18:00</li>
-                    <li>Сб: 10:00 - 15:00</li>
-                    <li>Вс: выходной</li>
-                </ul>
-            </div>
-        </div>
-        <hr>
-        <div class="text-center">
-            &copy; {% now "Y" %} Управление ЖКХ. Все права защищены.
-        </div>
-    </div>
-</footer>
+{% block js %}
+{{ block.super }}
+<!-- Подключение Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 {% endblock %}
