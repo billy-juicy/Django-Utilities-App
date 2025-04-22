@@ -19,10 +19,10 @@ from django.urls import path, include
 from clients.views import Homepage
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls), # Админка
     path('api-auth/', include('rest_framework.urls')),
     path('clients/', include('clients.urls')), # Подключаем маршруты из clients
-    path('', Homepage.as_view(), name='homepage'),
+    path('', Homepage.as_view(), name='homepage'), # Подключаем главную страницу
     path("accounts/", include("django.contrib.auth.urls")),
     path('billing/', include('billing.urls')), # Подключаем маршруты из billing
 ]

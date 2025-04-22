@@ -42,7 +42,7 @@ class TariffListView(ListView):
         return context
 
 class InvoiceListView(ListView):
-    paginate_by = 3
+    paginate_by = 3 # Пагинация
     model = Invoice
     template_name = 'invoice.html' # Путь к шаблону
     context_object_name = 'invoices' # Название списка в шаблоне
@@ -57,7 +57,7 @@ class InvoiceListView(ListView):
         return queryset
 
 class MeterListView(ListView):
-    paginate_by = 3
+    paginate_by = 3 # Пагинация
     model = Meter
     template_name = 'meter.html' # Путь к шаблону
     context_object_name = 'meters' # Название списка в шаблоне
@@ -72,7 +72,7 @@ class MeterListView(ListView):
         return queryset
 
 class PaymentListView(ListView):
-    paginate_by = 3
+    paginate_by = 3 # Пагинация
     model = Payment
     template_name = 'payment.html' # Путь к шаблону
     context_object_name = 'payments' # Название списка в шаблоне
@@ -97,7 +97,7 @@ class DebtDetailView(DetailView):
         return context
 
 class MeterReadingListView(ListView):
-    paginate_by = 3
+    paginate_by = 3 # Пагинация
     model = MeterReading
     template_name = 'meter_reading.html'
     context_object_name = 'meter_readings'
