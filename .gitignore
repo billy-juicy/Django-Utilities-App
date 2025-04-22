@@ -1,5 +1,28 @@
-# Виртуальное окружение
-.venv/
+# Виртуальные окружения
 venv/
+.venv/
 
+# Кеши Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Конфиденциальные файлы
+.env
+*.log
+
+# Статика (если собирается вручную или через collectstatic)
+staticfiles/
+static/
+
+# PyCharm
+.idea/
+
+# Сборка, временные файлы и мусор
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+
+# Папка public
 public/**
